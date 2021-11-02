@@ -19,6 +19,4 @@ router.param("categoryId", async (req, res, next, categoryId) => {
 
 router.get("/", categoryList);
 
-router.post("/", categoryCreate);
-
 module.exports = router;
