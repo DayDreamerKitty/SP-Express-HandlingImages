@@ -1,6 +1,6 @@
 const express = require("express");
 const productRoutes = require("./apis/products/routes");
-const categoriesRoutes = require("./apis/products/Categories/category.routes");
+const shopRoutes = require("./apis/Shops/shops.routes");
 const connectDB = require("./db/database");
 const cors = require("cors");
 const morgan = require("morgan");
@@ -26,7 +26,7 @@ app.use((req, res, next) => {
 // Routes
 app.use("/media", express.static(path.join(__dirname, "media")));
 app.use("/api/products", productRoutes);
-app.use("/api/categories", categoriesRoutes);
+app.use("/api/shops", shopRoutes);
 
 app.use((req, res, next) => {
   res.status(404).json({ message: "Path not found" });

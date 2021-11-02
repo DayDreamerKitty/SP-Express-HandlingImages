@@ -19,9 +19,9 @@ const ProductSchema = mongoose.Schema(
       type: Number,
       min: 0,
     },
-    category: {
+    shop: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Category",
+      ref: "Shop",
     },
   },
   {
