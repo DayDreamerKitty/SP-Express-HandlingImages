@@ -28,5 +28,15 @@ exports.jwtStratgey = new JWTStrategy(
     jwtFromRequest: fromAuthHeaderAsBearerToken(),
     secretOrKey: JWT_SECRET,
   },
-  () => {}
+  async (payload, done) => {
+    if (Date.now() > payload.exp) {
+      return done(null, false);
+    }
+    try {
+      const user = await User.findById(payload._id);
+      return done(null, user);
+    } catch (error) {
+      done(error);
+    }
+  }
 );

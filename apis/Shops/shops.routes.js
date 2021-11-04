@@ -6,6 +6,7 @@ const {
   fetchShop,
   productCreate,
 } = require("./shops.controllers");
+const passport = require("passport");
 
 // Create a mini express application
 const router = express.Router();
@@ -21,9 +22,19 @@ router.param("ShopId", async (req, res, next, shopId) => {
   }
 });
 
-router.post("/", upload.single("image"), ShopCreate);
+router.post(
+  "/",
+  passport.authenticate("jwt", { session: false }),
+  upload.single("image"),
+  ShopCreate
+);
 
-router.post("/:shopId/products", upload.single("image"), productCreate);
+router.post(
+  "/:shopId/products",
+  passport.authenticate("jwt", { session: false }),
+  upload.single("image"),
+  productCreate
+);
 
 router.get("/", ShopListFetch);
 

@@ -14,6 +14,10 @@ const ShopSchema = mongoose.Schema({
       ref: "Product",
     },
   ],
+  owner: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+  },
 });
 
 ShopSchema.plugin(mongooseSlugPlugin, { tmpl: "<%=name%>" });
