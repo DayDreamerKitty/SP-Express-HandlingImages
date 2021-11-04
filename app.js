@@ -8,6 +8,8 @@ const morgan = require("morgan");
 const logger = require("./middleware/logger");
 const errorHandler = require("./middleware/errorHandler");
 const path = require("path");
+const passport = require("passport");
+const { localStrategy } = require("./middleware/passport");
 
 const app = express();
 
@@ -23,6 +25,9 @@ app.use((req, res, next) => {
     res.status(400).json({ message: "I HATE BROCCOLI!! KEEFY! " });
   else next();
 });
+
+app.use(passport.initialize());
+passport.use(localStrategy);
 
 // Routes
 app.use("/media", express.static(path.join(__dirname, "media")));
