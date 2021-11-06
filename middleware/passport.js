@@ -23,7 +23,7 @@ exports.localStrategy = new LocalStrategy(async (username, password, done) => {
   }
 });
 
-exports.jwtStratgey = new JWTStrategy(
+exports.jwtStrategy = new JWTStrategy(
   {
     jwtFromRequest: fromAuthHeaderAsBearerToken(),
     secretOrKey: JWT_SECRET,

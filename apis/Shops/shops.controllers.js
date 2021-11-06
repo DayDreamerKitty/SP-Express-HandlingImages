@@ -12,6 +12,12 @@ exports.fetchShop = async (shopId, next) => {
 
 exports.productCreate = async (req, res, next) => {
   try {
+    if (!req.user._id.equals(req.shop.owner._id)) {
+      return next({
+        status: 401,
+        message: "You're not the owner!",
+      });
+    }
     if (req.file) {
       req.body.image = `${req.protocol}://${req.get("host")}/${req.file.path}`;
     }
@@ -28,23 +34,17 @@ exports.productCreate = async (req, res, next) => {
 
 exports.ShopCreate = async (req, res, next) => {
   try {
-    if (!req.user._id.equals(req.shop.owner._id)) {
-      return next({
-        status: 401,
-        message: "You're not the owner!",
-      });
-    }
     if (req.file) {
       req.body.image = `${req.protocol}://${req.get("host")}/${req.file.path}`;
     }
     req.body.owner = req.user._id;
-    const newshop = await Shop.create(req.body);
+    const newShop = await Shop.create(req.body);
     await newShop.populate({
       path: "owner",
       select: "username",
     });
 
-    return res.status(201).json(newshop);
+    return res.status(201).json(newShop);
   } catch (error) {
     next(error);
   }

@@ -22,7 +22,7 @@ exports.signup = async (req, res, next) => {
 
     const token = generateToken(newUser);
 
-    res.status(201).json({ token: token });
+    res.status(201).json({ token });
   } catch (error) {
     next(error);
   }

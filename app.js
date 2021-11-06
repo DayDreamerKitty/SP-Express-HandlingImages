@@ -9,7 +9,7 @@ const logger = require("./middleware/logger");
 const errorHandler = require("./middleware/errorHandler");
 const path = require("path");
 const passport = require("passport");
-const { localStrategy, jwtStratgey } = require("./middleware/passport");
+const { localStrategy, jwtStrategy } = require("./middleware/passport");
 
 const app = express();
 
@@ -28,7 +28,7 @@ app.use((req, res, next) => {
 
 app.use(passport.initialize());
 passport.use(localStrategy);
-passport.use(jwtStratgey);
+passport.use(jwtStrategy);
 
 // Routes
 app.use("/media", express.static(path.join(__dirname, "media")));
