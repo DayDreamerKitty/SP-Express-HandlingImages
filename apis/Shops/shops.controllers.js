@@ -11,8 +11,9 @@ exports.fetchShop = async (shopId, next) => {
 };
 
 exports.productCreate = async (req, res, next) => {
+  console.log(req.shop);
   try {
-    if (!req.user._id.equals(req.shop.owner._id)) {
+    if (!req.user._id.equals(req.shop.owner)) {
       return next({
         status: 401,
         message: "You're not the owner!",

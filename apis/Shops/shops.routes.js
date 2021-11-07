@@ -12,7 +12,7 @@ const passport = require("passport");
 const router = express.Router();
 
 // Param Middleware
-router.param("ShopId", async (req, res, next, shopId) => {
+router.param("shopId", async (req, res, next, shopId) => {
   const shop = await fetchShop(shopId, next);
   if (shop) {
     req.shop = shop;
