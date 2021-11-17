@@ -1,5 +1,6 @@
 const Shop = require("../../db/models/shop");
 const Product = require("../../db/models/Product");
+const normalize = require("normalize-path");
 
 exports.fetchShop = async (shopId, next) => {
   try {
@@ -20,7 +21,9 @@ exports.productCreate = async (req, res, next) => {
       });
     }
     if (req.file) {
-      req.body.image = `${req.protocol}://${req.get("host")}/${req.file.path}`;
+      req.body.image = normalize(
+        `${req.protocol}://${req.get("host")}/${req.file.path}`
+      );
     }
     req.body.shop = req.params.shopId;
     const newProduct = await Product.create(req.body);

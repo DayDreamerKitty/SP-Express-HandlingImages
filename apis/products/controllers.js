@@ -1,4 +1,5 @@
 const Product = require("../../db/models/Product");
+const normalize = require("normalize-path");
 
 exports.fetchProduct = async (productId, next) => {
   try {
@@ -25,7 +26,9 @@ exports.productDetailFetch = async (req, res, next) =>
 exports.productUpdate = async (req, res, next) => {
   try {
     if (req.file) {
-      req.body.image = `${req.protocol}://${req.get("host")}/${req.file.path}`;
+      req.body.image = normalize(
+        `${req.protocol}://${req.get("host")}/${req.file.path}`
+      );
     }
     const product = await Product.findByIdAndUpdate(
       req.product,
