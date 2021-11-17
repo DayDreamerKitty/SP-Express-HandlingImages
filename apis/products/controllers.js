@@ -26,9 +26,8 @@ exports.productDetailFetch = async (req, res, next) =>
 exports.productUpdate = async (req, res, next) => {
   try {
     if (req.file) {
-      req.body.image = normalize(
-        `${req.protocol}://${req.get("host")}/${req.file.path}`
-      );
+      req.body.image =
+        `${req.protocol}://${req.get("host")}/` + normalize(`${req.file.path}`);
     }
     const product = await Product.findByIdAndUpdate(
       req.product,
